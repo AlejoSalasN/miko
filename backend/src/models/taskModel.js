@@ -25,9 +25,9 @@ export const getTasks = async (workspaceId) => {
 // Obtener tareas mediante columna
 export const getTasksByColumn = async (columna) => {
   const result = await pool.query(
-    `SELECT titulo
-    FROM Tarea
-    WHERE columna = $1`,
+    `SELECT COUNT(*) AS task_count
+     FROM Tarea
+     WHERE columna = $1`,
     [columna]
   );
   return parseInt(result.rows[0].task_count, 10);

@@ -1,10 +1,11 @@
 import { createTask, getTasks, getTaskById, updateTask, moveTask, deleteTask } from '../models/taskModel.js';
 import { getWorkspaceById, isUserEditor } from '../models/workspaceModel.js';
+import { getColumnById } from '../models/columnModel.js';
 
 // Crear una tarea
 export const createTaskController = async (req, reply) => {
   const { titulo, descripcion, comentario } = req.body;
-  const { workspaceId, columnId } = req.params;
+  const { workspaceId, columnId: columna } = req.params;
   const { id: userId } = req.user;
 
   if (!titulo) {
@@ -24,7 +25,16 @@ export const createTaskController = async (req, reply) => {
       });
     }
 
-    const task = await createTask(titulo, descripcion, comentario, columnId, workspaceId, userId);
+    const columnita = await getColumnById(columna, workspaceId);
+    if (!columnita) {
+      return reply.status(404).send({
+        success: false,
+        error: 'Columna no existente',
+        data: columnita
+      })
+    }
+
+    const task = await createTask(titulo, descripcion, comentario, columna, workspaceId, userId);
     reply.status(201).send({
       success: true,
       message: 'Tarea creada exitosamente',

@@ -20,6 +20,17 @@ export const getColumnsByWorkspace = async (workspaceId) => {
   return result.rows;
 };
 
+// Obtener una columna si existe
+export const getColumnById = async (columna, workspaceId) => {
+  const result = await pool.query(
+    `SELECT id, nombre
+    FROM Columna
+    WHERE id = $1 AND id_area_trabajo = $2`,
+    [columna, workspaceId]
+  );
+  return result.rows[0];
+}
+
 // Actualizar columna
 export const updateColumn = async (columnId, { nombre, orden }) => {
   const result = await pool.query(
