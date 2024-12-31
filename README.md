@@ -46,6 +46,8 @@ Asegúrate de tener instalados los siguientes programas:
      PORT=5000
      DATABASE_URL=postgresql://usuario:contraseña@localhost:5432/nombre_base_datos
      JWT_SECRET=tu_secreto_seguro
+     EMAIL_USER=tucorreo@servidor.com
+     EMAIL_PASSWORD=contraseña de aplicación
      ```
 
 4. Inicia la base de datos:
