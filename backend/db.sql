@@ -52,3 +52,19 @@ CREATE TABLE Tarea (
     FOREIGN KEY (id_columna) REFERENCES Columna(id) ON DELETE CASCADE,
     FOREIGN KEY (id_usuario_creador) REFERENCES Usuario(id)
 );
+
+--Tablas temporales
+
+CREATE TABLE PasswordResetCodes (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) NOT NULL,
+  code VARCHAR(6) NOT NULL,
+  expiration TIMESTAMP NOT NULL
+);
+
+CREATE TABLE EmailVerificationCodes (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) NOT NULL,
+  code VARCHAR(6) NOT NULL,
+  expiration TIMESTAMP NOT NULL
+);
