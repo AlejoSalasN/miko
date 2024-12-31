@@ -5,7 +5,7 @@ import fastifyCors from '@fastify/cors';
 import { appConfig } from './src/config/appConfig.js';
 import { registerRoutes } from './src/routes/index.js';
 import { globalErrorHandler } from './src/middlewares/erroHandler.js';
-import { authenticate } from './src/middlewares/authMiddleware.js';
+import { authenticate, authenticateResetToken } from './src/middlewares/authMiddleware.js';
 
 dotenv.config();
 
@@ -17,6 +17,8 @@ fastify.register(fastifyJwt, { secret: appConfig.jwtSecret });
 
 
 fastify.decorate('authenticate', authenticate);
+fastify.decorate('authenticateResetToken', authenticateResetToken);
+
 
 //fastify.decorate('checkRole', checkRole);
 
